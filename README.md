@@ -13,7 +13,9 @@ Simple script que automatiza la tarea de mover mods y paquetes de recursos sin l
 # Used Libraries/Librerias usadas
 
 os
+
 shutil
+
 Tkinter
 
 
