@@ -45,7 +45,7 @@ Load background image,
 We create a Canvas with the resolution of the tab.
 and we enter the image
 '''
-bg_image = Image.open("_internal\\background.jpg")
+bg_image = Image.open("background.jpg")
 bg_photo = ImageTk.PhotoImage(bg_image)
 canvas = tkinter.Canvas(root, width=590, height=500)
 canvas.pack(fill="both", expand=True)
