@@ -1,6 +1,6 @@
 # MineUtilities
 
-![image](https://github.com/Lostdou/MineUtilities/assets/161231229/d2556e03-1335-4dea-8709-e52b99285373)
+![image](https://github.com/Lostdou/MineUtilities/assets/161231229/91cd8344-9e52-418d-9b6e-e477723217c5)
 
 
 - Script made by: Lostdou
@@ -8,14 +8,12 @@
 
 # Description/Descripción
 
-- Simple script that automates the task of moving mods and resource packs without the need to open file explorer
-- Simple script que automatiza la tarea de mover mods y paquetes de recursos sin la necesidad de abrir el explorador de archivos 
+- Minecraft Java Support Software with Multiple User Features
+- Software de asistencia para Minecraft Java con múltiples funciones para el usuario
 
 # Features/Caracteristicas
 
-- Intuitive and customizable GUI / Interfaz intuitiva y personalizable
-- Simplifies the process of moving files to the ".minecraft" folder, or wherever you have your Minecraft installation / Simplifica el proceso de mover archivos a la carpeta ".minecraft", o a donde usted tenga su instalación de Minecraft
-- "Simplified" code for Python programmers with basic/intermediate knowledge / Codigo "simplificado" para programadores en Python con conocimientos basicos/intermedios
+- In development/En desarrollo
 
 # Used Libraries/Librerias usadas
 
