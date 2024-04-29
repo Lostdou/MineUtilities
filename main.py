@@ -126,6 +126,3 @@ btn_new_window.pack()
 btn_new_window.place(x=20, y=270)
 widgets.append(btn_new_window)
 root.mainloop()
-
-
-#test lal
