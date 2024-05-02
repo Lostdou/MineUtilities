@@ -55,34 +55,37 @@ def open_modpack_window(): # Es el menú de Modpacks, desde aca se deberia poder
     btn_home.place(x=20, y=300)
     widgets.append(btn_home)
 
-def new_modpack_window(): # Es el menu para crear los modpacks, lo ideal seria que fuera una pestaña aparte y se cierre al terminar, deberias arreglarlo
-    global canvas
-    destroy_widgets()
-    canvas.delete("all")
-    label = tkinter.Label(root, text="Create modpack", font='minecraft 15')
-    label.place(x=110, y=20)
-    widgets.append(label)
+def new_modpack_window(): # Es un menú emergente para crear los perfiles/modpacks. Los deja en la carpeta "modpacks", y si no existe la crea
+    new_window = tkinter.Toplevel(root)
+    new_window.title("Create modpack")
+    new_window.configure(bg='#000000')
+    label = tkinter.Label(new_window, text="Create modpack", font='minecraft 15')
+    label.pack(pady=20)
     directory_name = StringVar()
-    label = Label(root, text='Name the modpack:', font='minecraft 10')
-    label.place(x=100, y=90)
-    widgets.append(label)
-    directory_name_enter = Entry(root, width=32, textvariable=directory_name)
-    directory_name_enter.place(x=32, y=120)
-    widgets.append(directory_name_enter)
-    btn_newdatapack = Button(root, text="Enter", font='minecraft 10', cursor="hand2", command=lambda: create_modpack(directory_name.get()))
-    btn_newdatapack.place(x=150, y=150)
-    widgets.append(btn_newdatapack)
-    btn_newdatapack = Button(root, text="Back", font='minecraft 10', cursor="hand2", command=open_modpack_window)
-    btn_newdatapack.place(x=125, y=200)
-    widgets.append(btn_newdatapack)
+    label = Label(new_window, text='Name the modpack:', font='minecraft 10')
+    label.pack(pady=10)
+    directory_name_enter = Entry(new_window, width=32, textvariable=directory_name)
+    directory_name_enter.pack(pady=10)
+    
+    # Cuando se presiona el botón "Enter", se crea el modpack y se cierra la ventana
+    btn_newdatapack = Button(new_window, text="Enter", font='minecraft 10', cursor="hand2", 
+                             command=lambda: [create_modpack(directory_name.get()), new_window.destroy()])
+    btn_newdatapack.pack(pady=10)
 
-def created_modpack_window(modpack_name): # Es el menu para modificar Modpacks creados, deberias poder buscar mods, añadirlos, borrarlos e importarlos a la carpeta mods
-    global canvas
-    destroy_widgets()
-    canvas.delete("all")
-    label = Label(root, text=modpack_name, font='minecraft 15')
-    label.place(anchor='center', relx=0.5, y=20)
-    widgets.append(label)
+
+def created_modpack_window(modpack_name):
+    # Crear una nueva ventana
+    new_window = tkinter.Toplevel(root)
+    new_window.title(f"Modpack: {modpack_name}")
+    new_window.tk.call('tk', 'scaling', 2.0)
+    new_window.geometry('500x350')
+    new_window.resizable(0, 0)
+
+    new_window.configure(bg='#000000')
+    label = Label(new_window, text=modpack_name, font='minecraft 15')
+    label.pack(pady=20)
+    # Modificar para poder agregar/borrar y demas
+    # Idea: Al agregar mods, podria preguntar si lo quiere agregar de forma local o si quiere buscar en internet
 
 def choose_modpack(): # Funcion para elegir modpacks, no tiene mucho misterio. Devuelve el nombre del modpack y este deberia poder modificarse desde la funcion created_modpack_window()
     modpack = filedialog.askdirectory(title="Select the modpack", initialdir="modpacks") 
