@@ -1,8 +1,0 @@
-### Diseño ###
-- GUI reactiva
-- Pantalla de carga (con logo)
-
-
-### Funcionalidades ###
-- Crear Modpacks enlazando con CurseForge
-- 
