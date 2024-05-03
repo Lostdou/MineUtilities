@@ -1,6 +1,8 @@
 import os
+import winreg
 import shutil
 import tkinter
+import zipfile
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
@@ -10,7 +12,15 @@ from script_info import *
 
 
 
+
 ## --------------- Functions -------------------
+def copy_to_clipboard(text): # Funcion para copiar texto en el portapapeles
+    root = Tk()
+    root.withdraw()  # Para evitar que aparezca la ventana de Tk
+    root.clipboard_clear()
+    root.clipboard_append(text)
+    root.update()  # Ahora el texto está en el portapapeles
+
 def create_modpack(directory_name): # Funcion para crear los modpacks, y en caso de que no exista tambien crea el directorio "Modpacks"
     modpacks_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'modpacks')
     if not os.path.exists(modpacks_dir):
@@ -22,18 +32,54 @@ def create_modpack(directory_name): # Funcion para crear los modpacks, y en caso
 def callback(url):  # Funcion para abrir enlaces, por ahora se usa para el "by Lostdou". Podrias usarlo para la busqueda de mods igualmente
     webbrowser.open_new_tab(url)
 
-def move_files(default_destination_folder): # Funcion para mover los mods a la carpeta de destino, aunque este espera que se le indique que carpeta. 
-    #---------------------------------------- Deberias usar el boton "Move mods" de la v1.1 para poder mover mods con esta funcion
-    #---------------------------------------- A menos que quieras modificar la funcion claro
-    files = filedialog.askopenfilenames(title="Select Files to Move", multiple=True) 
-    change_destination = messagebox.askyesno("Select", "Do you want to change the destination folder?")
-    if change_destination:
-        destination_folder = filedialog.askdirectory(title="Select Destination Folder")
-    else:
-        destination_folder = os.path.join(os.path.expanduser("~"), "AppData", "Roaming", ".minecraft", default_destination_folder)
-    os.makedirs(destination_folder, exist_ok=True) #Create destination folder if necessary
-    for file in files: 
-        if file:
-            shutil.copy(file, destination_folder)
-    messagebox.showinfo("Info", "Completed")
+def move_files(modpack_path, default_destination_folder): # Funcion para mover los archivos al .minecraft, puede que haya que hacerle otro rework a la hora de mover resourcepacks
+    # Obtener la lista de todos los mods en la carpeta del modpack
+    files = [f for f in os.listdir(modpack_path) if os.path.isfile(os.path.join(modpack_path, f))]
+    destination_folder = os.path.join(os.path.expanduser("~"), "AppData", "Roaming", ".minecraft", default_destination_folder)
+    # Borrar todos los archivos en la carpeta de destino
+    if os.path.exists(destination_folder):
+        shutil.rmtree(destination_folder)
+    # Crear la carpeta de destino si es necesario
+    os.makedirs(destination_folder, exist_ok=True)
+    for file in files:
+        shutil.copy(os.path.join(modpack_path, file), destination_folder)
 
+def erase_mods(modpack_path): # Funcion para seleccionar y borrar los mods del modpack
+    file_paths = filedialog.askopenfilenames(initialdir=modpack_path, title="Selecciona los mods para eliminar")
+
+    # Eliminar los archivos seleccionados
+    for file_path in file_paths:
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+            print(f"Archivo {file_path} eliminado con éxito.")
+        else:
+            print(f"El archivo {file_path} no existe.")
+
+def create_zip_file(input_folder, output_file): # Funcion para crear el .zip de los mods
+    with zipfile.ZipFile(output_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(input_folder):
+            for file in files:
+                file_path = os.path.join(root, file)
+                if file_path == output_file:
+                    continue  # No agregamos el archivo zip de salida
+                zipf.write(file_path, 
+                           os.path.relpath(file_path, 
+                           os.path.join(input_folder, '..')))
+
+
+'''
+----------------------- Notas de Desarrollo ---------------------
+#03/05/24 
+- Cambios:
+    - Nuevas funciones: 
+                        copy_to_clipboard()
+                        erase_mods()
+                        create_zip_file()
+
+    - Funciones modificadas: 
+                        move_files()
+
+
+    Lo que hacen y sus cambios ya ha sido comentado
+
+'''

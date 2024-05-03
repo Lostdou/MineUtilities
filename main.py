@@ -131,12 +131,12 @@ def created_modpack_window(modpack_name, modpack_path): # Es el menu para editar
     label = tkinter.Label(root, text=modpack_path, font='minecraft 5')
     label.place(x=20, y=200)
     widgets.append(label)
-    label_widget = tkinter.Label(root, text="IMPORTANTE:\nAca iria una aclaracion\n que pueda ser necesaria", height=10, width=25, font='minecraft 6')
+    label_widget = tkinter.Label(root, text="IMPORTANT:\nThis program does NOT\n automatically download to the\n modpack directory.\nSo you can copy the path\n to the directory to paste it\n when downloading the mod(s)", height=10, width=25, font='minecraft 6')
     label_widget.place(x=800, y=220)  
     widgets.append(label_widget)
 
     # Botones Globales
-    btn_home = Button(canvas, text="Main Menu", font='minecraft 10', cursor="hand2", command=lambda:home_window)
+    btn_home = Button(canvas, text="Main Menu", font='minecraft 10', cursor="hand2", command=home_window)
     btn_home.place(x=400, y=25)
     widgets.append(btn_home)
     btn_modpack = Button(canvas, text="Modpacks", font='minecraft 10', cursor="hand2", command=open_modpack_window)
@@ -146,10 +146,21 @@ def created_modpack_window(modpack_name, modpack_path): # Es el menu para editar
     # Botones Locales
     btn_new_mod= Button(canvas, text="Add Mod", font='minecraft 10', cursor="hand2", command=lambda:ask_if_import_or_search(modpack_path))
     btn_new_mod.place(x=20, y=300)
-    btn_delete_mod=Button(canvas, text="Delete Mod", font='minecraft 10', cursor="hand2", command="")
+    widgets.append(btn_new_mod)
+    btn_delete_mod=Button(canvas, text="Delete Mod", font='minecraft 10', cursor="hand2", command=lambda:erase_mods(modpack_path))
     btn_delete_mod.place(x=20, y=350)
-    btn_export_mod= Button(canvas, text="Export Modpack", font='minecraft 10', cursor="hand2", command="")
+    widgets.append(btn_delete_mod)
+    btn_export_mod= Button(canvas, text="Export Modpack to Minecraft", font='minecraft 10', cursor="hand2", command=lambda:move_files(modpack_path, "mods"))
     btn_export_mod.place(x=20, y=400)
+    widgets.append(btn_export_mod)
+    nombre_carpeta = os.path.basename(modpack_path)
+    modpack_path_rar = os.path.join(modpack_path, f"{nombre_carpeta}.zip")
+    btn_export_rar_mod= Button(canvas, text="Export Modpack as .zip", font='minecraft 10', cursor="hand2", command=lambda:create_zip_file(modpack_path, modpack_path_rar))
+    btn_export_rar_mod.place(x=20, y=450)
+    widgets.append(btn_export_rar_mod)
+    btn_copy_dir= Button(canvas, text="Copy directory path", font='minecraft 5', cursor="hand2", command=lambda:copy_to_clipboard(modpack_path))
+    btn_copy_dir.place(x=840,y=400)
+    widgets.append(btn_copy_dir)
 
 def choose_modpack(): # Funcion para elegir modpacks, no tiene mucho misterio. Devuelve el nombre del modpack y este deberia poder modificarse desde la funcion created_modpack_window()
     modpack = filedialog.askdirectory(title="Select the modpack", initialdir="modpacks") 
@@ -219,9 +230,9 @@ root.mainloop()
 - Cambios:
     - Cambio en la GUI, ahora todas las pestañas del programa tienen Labels y Botones globales.
     Estos son Botones o texto que son parte imborrable de la GUI y son accesibles en todo momento.
-
     - Ahora la pestaña para modificar un modpack (created_modpack_window()) ya permite la instalación de mods de forma
-    local y mediante CurseForge. Faltaria que se pueda elegir una forma de que el navegador predeterminado elija la carpeta
-    del modpack como lugar predeterminado para instalar durante la ejecución del programa.
+    local y mediante CurseForge.
+    - GUI del editor de modpacks terminada
+    - 3 funciones nuevas y una modificada. Más info en functions.py
 
 '''
