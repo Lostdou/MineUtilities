@@ -11,9 +11,6 @@ from script_info import *
 
 
 ## --------------- Functions -------------------
-def close_window(tab):  # Funcion para borrar ventanas emergentes, por ahora solo deberia de usarlo new_modpack_window()
-    tab.destroy()
-
 def create_modpack(directory_name): # Funcion para crear los modpacks, y en caso de que no exista tambien crea el directorio "Modpacks"
     modpacks_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'modpacks')
     if not os.path.exists(modpacks_dir):
@@ -23,7 +20,7 @@ def create_modpack(directory_name): # Funcion para crear los modpacks, y en caso
         os.makedirs(new_modpack_dir)
 
 def callback(url):  # Funcion para abrir enlaces, por ahora se usa para el "by Lostdou". Podrias usarlo para la busqueda de mods igualmente
-    webbrowser.open_new(url)
+    webbrowser.open_new_tab(url)
 
 def move_files(default_destination_folder): # Funcion para mover los mods a la carpeta de destino, aunque este espera que se le indique que carpeta. 
     #---------------------------------------- Deberias usar el boton "Move mods" de la v1.1 para poder mover mods con esta funcion
