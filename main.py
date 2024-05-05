@@ -25,11 +25,11 @@ def home_window(): # Es el menú principal hecho funcion, no se puede volver al 
     # Labels Globales
     label = Label(root, text=project_name, font='minecraft 20', cursor="hand2")
     label.place(x=20, y=20)
-    label.bind("<Button-1>", lambda: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
     widgets.append(label)
     label = Label(root, text=made_by, font='minecraft 7', cursor="hand2")
     label.pack()
-    label.bind("<Button-1>", lambda: callback("https://github.com/Lostdou"))
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou"))
     label.place(x=20, y=80)
     widgets.append(label)
     label = Label(root, text=script_ver, font='minecraft 10')
@@ -41,8 +41,14 @@ def home_window(): # Es el menú principal hecho funcion, no se puede volver al 
     btn_home.place(x=400, y=25)
     widgets.append(btn_home)
     btn_modpack = Button(canvas, text="Modpacks", font='minecraft 10', cursor="hand2", command=open_modpack_window)
-    btn_modpack.place(x=550, y=25)
+    btn_modpack.place(x=545, y=25)
     widgets.append(btn_modpack)
+    btn_resource_pack = Button(canvas, text="Resource Packs", font='minecraft 10', cursor="hand2", command=open_rp_window)
+    btn_resource_pack.place(x=693, y=25)
+    widgets.append(btn_resource_pack)
+    btn_about_me = Button(canvas, text="About me", font='minecraft 10', cursor="hand2", command="")
+    btn_about_me.place(x=920, y=25)
+    widgets.append(btn_about_me)
 
 def open_modpack_window(): # Es el menú de Modpacks, desde aca se deberia poder crear/modificar/borrar "perfiles" o modpacks. Ademas de volver al menu principal
     global canvas
@@ -53,11 +59,11 @@ def open_modpack_window(): # Es el menú de Modpacks, desde aca se deberia poder
     # Labels Globales
     label = Label(root, text=project_name, font='minecraft 20', cursor="hand2")
     label.place(x=20, y=20)
-    label.bind("<Button-1>", lambda: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
     widgets.append(label)
     label = Label(root, text='by lostdou', font='minecraft 7', cursor="hand2")
     label.pack()
-    label.bind("<Button-1>", lambda: callback("https://github.com/Lostdou"))
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou"))
     label.place(x=20, y=80)
     widgets.append(label)
     label = Label(root, text=script_ver, font='minecraft 10')
@@ -74,16 +80,25 @@ def open_modpack_window(): # Es el menú de Modpacks, desde aca se deberia poder
     btn_home.place(x=400, y=25)
     widgets.append(btn_home)
     btn_modpack = Button(canvas, text="Modpacks", font='minecraft 10', cursor="hand2", command=open_modpack_window)
-    btn_modpack.place(x=550, y=25)
+    btn_modpack.place(x=545, y=25)
     widgets.append(btn_modpack)
+    btn_resource_pack = Button(canvas, text="Resource Packs", font='minecraft 10', cursor="hand2", command=open_rp_window)
+    btn_resource_pack.place(x=693, y=25)
+    widgets.append(btn_resource_pack)
+    btn_about_me = Button(canvas, text="About me", font='minecraft 10', cursor="hand2", command="")
+    btn_about_me.place(x=920, y=25)
+    widgets.append(btn_about_me)
 
     # Botones Locales
     btn_newdatapack = Button(canvas, text="Create new Modpack", font='minecraft 10', cursor="hand2", command=new_modpack_window)
     btn_newdatapack.place(x=20, y=300)
     widgets.append(btn_newdatapack)
-    btn_newdatapack = Button(canvas, text="Edit an existent Modpack", font='minecraft 10', cursor="hand2", command=choose_modpack)
-    btn_newdatapack.place(x=20, y=350)
-    widgets.append(btn_newdatapack)
+    btn_editmodpack = Button(canvas, text="Edit an existent Modpack", font='minecraft 10', cursor="hand2", command=choose_modpack)
+    btn_editmodpack.place(x=20, y=350)
+    widgets.append(btn_editmodpack) 
+    btn_deletemodpack=Button(canvas, text="Delete Modpack", font='minecraft 10', cursor="hand2", command=delete_modpack)
+    btn_deletemodpack.place(x=20, y=400)
+    widgets.append(btn_deletemodpack)
     
 def new_modpack_window(): # Es un menú emergente para crear los perfiles/modpacks. Los deja en la carpeta "modpacks", y si no existe la crea
     new_window = tkinter.Toplevel(root)
@@ -113,11 +128,11 @@ def created_modpack_window(modpack_name, modpack_path): # Es el menu para editar
     # Labels Globales
     label = Label(root, text=project_name, font='minecraft 20', cursor="hand2")
     label.place(x=20, y=20)
-    label.bind("<Button-1>", lambda: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
     widgets.append(label)
     label = Label(root, text=made_by, font='minecraft 7', cursor="hand2")
     label.pack()
-    label.bind("<Button-1>", lambda: callback("https://github.com/Lostdou"))
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou"))
     label.place(x=20, y=80)
     widgets.append(label)
     label = Label(root, text=script_ver, font='minecraft 10')
@@ -140,8 +155,15 @@ def created_modpack_window(modpack_name, modpack_path): # Es el menu para editar
     btn_home.place(x=400, y=25)
     widgets.append(btn_home)
     btn_modpack = Button(canvas, text="Modpacks", font='minecraft 10', cursor="hand2", command=open_modpack_window)
-    btn_modpack.place(x=550, y=25)
+    btn_modpack.place(x=545, y=25)
     widgets.append(btn_modpack)
+    btn_resource_pack = Button(canvas, text="Resource Packs", font='minecraft 10', cursor="hand2", command=open_rp_window)
+    btn_resource_pack.place(x=693, y=25)
+    widgets.append(btn_resource_pack)
+    btn_about_me = Button(canvas, text="About me", font='minecraft 10', cursor="hand2", command="")
+    btn_about_me.place(x=920, y=25)
+    widgets.append(btn_about_me)
+
 
     # Botones Locales
     btn_new_mod= Button(canvas, text="Add Mod", font='minecraft 10', cursor="hand2", command=lambda:ask_if_import_or_search(modpack_path))
@@ -171,18 +193,40 @@ def choose_modpack(): # Funcion para elegir modpacks, no tiene mucho misterio. D
     else:
         pass
 
-def ask_if_import_or_search(modpack_path):
-    # Pregunta al usuario si quiere importar mods o buscarlos en CurseForge
-    import_or_search = messagebox.askquestion("Import or search for mods", "Do you want to import mods from a local folder (Yes) or search for them in CurseForge? (No)", icon='warning')
+def open_rp_window(): # Es el menu de resource packs, aqui deberia poder agregar/mover/buscar/borrar los resource packs
+    global canvas
+    destroy_widgets()
+    canvas.delete("all")
+    canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
-    if import_or_search == 'yes':
-        files = filedialog.askopenfilenames(title="Select mods to move", multiple=True)
-        destination_folder = modpack_path
-        for file in files:
-            if file:
-                shutil.move(file, destination_folder)
-    else:
-        callback("https://www.curseforge.com/minecraft/search?page=1&pageSize=20&sortBy=relevancy&class=mc-mods")
+    # Labels Globales
+    label = Label(root, text=project_name, font='minecraft 20', cursor="hand2")
+    label.place(x=20, y=20)
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
+    widgets.append(label)
+    label = Label(root, text=made_by, font='minecraft 7', cursor="hand2")
+    label.pack()
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou"))
+    label.place(x=20, y=80)
+    widgets.append(label)
+    label = Label(root, text=script_ver, font='minecraft 10')
+    label.place(x=1000, y=670)
+    widgets.append(label)
+
+    # Botones Globales
+    btn_home = Button(canvas, text="Main Menu", font='minecraft 10', cursor="hand2", command=home_window)
+    btn_home.place(x=400, y=25)
+    widgets.append(btn_home)
+    btn_modpack = Button(canvas, text="Modpacks", font='minecraft 10', cursor="hand2", command=open_modpack_window)
+    btn_modpack.place(x=545, y=25)
+    widgets.append(btn_modpack)
+    btn_resource_pack = Button(canvas, text="Resource Packs", font='minecraft 10', cursor="hand2", command=open_rp_window)
+    btn_resource_pack.place(x=693, y=25)
+    widgets.append(btn_resource_pack)
+    btn_about_me = Button(canvas, text="About me", font='minecraft 10', cursor="hand2", command="")
+    btn_about_me.place(x=920, y=25)
+    widgets.append(btn_about_me)
+
 
 
 ## ---------------- Window ----------------------
@@ -200,27 +244,35 @@ canvas = tkinter.Canvas(root, width=1080, height=720)
 canvas.pack(fill="both", expand=True)
 canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 root.image = bg_photo
+
 # Labels Globales
 label = Label(root, text=project_name, font='minecraft 20', cursor="hand2")
 label.place(x=20, y=20)
-label.bind("<Button-1>", lambda: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
+label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou/MineUtilities/tree/main"))
 widgets.append(label) #------------------------------------------------------- Todos los labels y botones se guardarán en la lista "widgets" para poder ser borrados despues,
 #----------------------------------------------------------------------------- lo mismo ocurre en todas las funciones de menús gracias a la funcion destroy_widgets()
 label = Label(root, text='by lostdou', font='minecraft 7', cursor="hand2")
 label.pack()
-label.bind("<Button-1>", lambda: callback("https://github.com/Lostdou"))
+label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou"))
 label.place(x=20, y=80)
 widgets.append(label)
 label = Label(root, text=script_ver, font='minecraft 10')
 label.place(x=1000, y=670)
 widgets.append(label)
+
 # Botones Globales
 btn_home = Button(canvas, text="Main Menu", font='minecraft 10', cursor="hand2", command=home_window)
 btn_home.place(x=400, y=25)
 widgets.append(btn_home)
 btn_modpack = Button(canvas, text="Modpacks", font='minecraft 10', cursor="hand2", command=open_modpack_window)
-btn_modpack.place(x=550, y=25)
+btn_modpack.place(x=545, y=25)
 widgets.append(btn_modpack)
+btn_resource_pack = Button(canvas, text="Resource Packs", font='minecraft 10', cursor="hand2", command=open_rp_window)
+btn_resource_pack.place(x=693, y=25)
+widgets.append(btn_resource_pack)
+btn_about_me = Button(canvas, text="About me", font='minecraft 10', cursor="hand2", command="")
+btn_about_me.place(x=920, y=25)
+widgets.append(btn_about_me)
 
 root.mainloop()
 
@@ -235,4 +287,9 @@ root.mainloop()
     - GUI del editor de modpacks terminada
     - 3 funciones nuevas y una modificada. Más info en functions.py
 
+#05/05/24
+- Cambios
+    - Nuevos 2 botones a la GUI global, "Resource Packs" y "About me". Ambos tomaran funcion de a poco.
+    - La interfaz de la pestaña de Modpacks se da por finalizada
+    - 1 funcion nueva y 1 funcion movida del main.py a functions.py. Mas info en functions.py
 '''

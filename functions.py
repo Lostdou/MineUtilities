@@ -1,5 +1,4 @@
 import os
-import winreg
 import shutil
 import tkinter
 import zipfile
@@ -66,6 +65,30 @@ def create_zip_file(input_folder, output_file): # Funcion para crear el .zip de 
                            os.path.relpath(file_path, 
                            os.path.join(input_folder, '..')))
 
+def ask_if_import_or_search(modpack_path): # Pregunta al usuario si quiere importar mods o buscarlos en CurseForge
+    import_or_search = messagebox.askquestion("Import or search for mods", "Do you want to import mods from a local folder (Yes) or search for them in CurseForge? (No)", icon='warning')
+
+    if import_or_search == 'yes':
+        files = filedialog.askopenfilenames(title="Select mods to move", multiple=True)
+        destination_folder = modpack_path
+        for file in files:
+            if file:
+                shutil.move(file, destination_folder)
+    else:
+        callback("https://www.curseforge.com/minecraft/search?page=1&pageSize=20&sortBy=relevancy&class=mc-mods")
+
+def delete_modpack(): # Borra el modpack elegido por el usuario
+    modpack = filedialog.askdirectory(title="Select the modpack to erase", initialdir="modpacks")
+    modpack_name = os.path.basename(modpack)
+    if modpack:
+        verification = messagebox.askquestion("Warning", f"Are you sure you want to delete the {modpack_name} modpack?", icon='warning')
+        if verification == 'yes':
+            shutil.rmtree(modpack)
+        else:
+            pass
+    else:
+        pass
+
 
 '''
 ----------------------- Notas de Desarrollo ---------------------
@@ -81,5 +104,13 @@ def create_zip_file(input_folder, output_file): # Funcion para crear el .zip de 
 
 
     Lo que hacen y sus cambios ya ha sido comentado
+
+#05/05/24
+- Cambios:
+    - Nuevas funciones:
+                        delete_modpack()
+    - Funciones movidas del main.py a functions.py:
+                        ask_if_import_or_search()
+    
 
 '''
