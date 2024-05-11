@@ -49,7 +49,7 @@ def move_files(source_path, default_destination_folder): # Funcion para mover ar
 # ------------------------------- Modpacks ---------------------------
 
 def create_modpack(directory_name): # Funcion para crear los modpacks, y en caso de que no exista tambien crea el directorio "Modpacks"
-    modpacks_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'modpacks')
+    modpacks_dir = os.path.join(os.getcwd(), 'modpacks')
     if not os.path.exists(modpacks_dir):
         os.makedirs(modpacks_dir)
     new_modpack_dir = os.path.join(modpacks_dir, directory_name)
@@ -105,7 +105,7 @@ def delete_modpack(): # Borra el modpack elegido por el usuario
 # ---------------------------- ResourcePacks ------------------------
 
 def add_resource_pack(): # Funcion para agregar Resource Packs, pregunta si quiere moverlo o descargarlo y crea la carpeta en caso de que no exista
-    resourcepacks_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resourcepacks')
+    resourcepacks_path = os.path.join(os.getcwd(), 'resourcepacks')
     destination_folder = resourcepacks_path
     os.makedirs(destination_folder, exist_ok=True)
     import_or_search = messagebox.askquestion("Import or search for mods", "Do you want to import Resource Packs from a local folder (Yes) or search for them in CurseForge? (No)", icon='warning')
@@ -134,7 +134,7 @@ def delete_rp():
             print(f'Error: {rp} : {e.strerror}')
 
 def copy_to_clipboard_rp():
-    resourcepacks_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resourcepacks')
+    resourcepacks_path = os.path.join(os.getcwd(), 'resourcepacks')
     destination_folder = resourcepacks_path
     os.makedirs(destination_folder, exist_ok=True)
     root = Tk()
