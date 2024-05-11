@@ -41,7 +41,7 @@ def global_labels_buttons(): # Todos los labels y botones que siempre aparecen e
     btn_resource_pack = Button(canvas, text="Resource Packs", font='minecraft 10', cursor="hand2", command=open_rp_window)
     btn_resource_pack.place(x=693, y=25)
     widgets.append(btn_resource_pack)
-    btn_about_me = Button(canvas, text="About me", font='minecraft 10', cursor="hand2", command="")
+    btn_about_me = Button(canvas, text="About me", font='minecraft 10', cursor="hand2", command=aboutme_window)
     btn_about_me.place(x=920, y=25)
     widgets.append(btn_about_me)
 
@@ -57,6 +57,28 @@ def mainmenu_window(): # Es el menú principal hecho funcion, no se puede volver
     # Labels Locales
     label = Label(root, text="Main menu", font='minecraft 15')
     label.place(x=20, y=150)
+    widgets.append(label)
+    # ---- Descripcion ----
+    label_widget = Label(root, text="", height=8, width=110, font='minecraft 6', background="#000000")
+    label_widget.place(x=40, y=210)  
+    widgets.append(label_widget)
+    label = Label(root, text="MineUtilities v1.2", font='minecraft 8')
+    label.place(x=50, y=220)  
+    widgets.append(label)
+    label = Label(root, text="-Now you can move your mods, modpacks and resource packs to be managed by the program", font='minecraft 8')
+    label.place(x=50, y=250)  
+    widgets.append(label)
+    label = Label(root, text="-GUI improved", font='minecraft 8')
+    label.place(x=50, y=280)  
+    widgets.append(label)
+    label = Label(root, text="-Now you can search directly from CurseForge your mods and resourcepacks", font='minecraft 8')
+    label.place(x=50, y=310)  
+    widgets.append(label)
+    label = Label(root, text="To report any bug/error, please contact me", font='minecraft 8')
+    label.place(x=50, y=370)  
+    widgets.append(label)
+    label = Label(root, text="More info on 'About Me'", font='minecraft 8')
+    label.place(x=50, y=400)  
     widgets.append(label)
 
 # ------------------------------- Modpacks ---------------------------
@@ -170,11 +192,55 @@ def open_rp_window(): # Es el menu de resource packs, aqui deberia poder agregar
     btn_exportrp_mc= Button(canvas, text="Export Resource Pack to Minecraft", font='minecraft 10', cursor="hand2", command=choose_rp)
     btn_exportrp_mc.place(x=20,y=350)
     widgets.append(btn_exportrp_mc)
-    btn_deleterp= Button(canvas, text="Delete Resource Pack", font='minecraft 10', cursor="hand2", command="")
+    btn_deleterp= Button(canvas, text="Delete Resource Pack", font='minecraft 10', cursor="hand2", command=delete_rp)
     btn_deleterp.place(x=20, y=400)
     widgets.append(btn_deleterp)
 
+#------------------------------ About Me ----------------------------
 
+def aboutme_window():
+    global canvas
+    destroy_widgets()
+    canvas.delete("all")
+    canvas.create_image(0, 0, image=bg_photo, anchor="nw")
+    global_labels_buttons()
+
+    # Labels locales
+    label_widget = Label(root, text="", height=4, width=90, font='minecraft 6')
+    label_widget.place(x=50, y=220)  
+    widgets.append(label_widget)
+    label = Label(root, text="About MineUtilities", font='minecraft 15')
+    label.place(x=20, y=150)
+    widgets.append(label)
+    # ---- Descripcion ----
+    label = Label(root, text="MineUtilities is an open source program for managing files related to Minecraft.\n", font='minecraft 8')
+    label.place(x=50, y=220)  
+    widgets.append(label)
+    label = Label(root, text="-From create/modify/delete modpacks and resourcepacks. \n             -As well as easily import them to the .minecraft folder. Easy as that", font='minecraft 8')
+    label.place(x=50, y=245)  
+    widgets.append(label)
+    # ---- Creditos ----
+    label = tkinter.Label(root, text="Developed by: Lostdou", font='minecraft 8')
+    label.place(x=50, y=300)  
+    widgets.append(label)
+    label = tkinter.Label(root, text="Socials:", font='minecraft 8')
+    label.place(x=50, y=340)  
+    widgets.append(label)
+    label = tkinter.Label(root, text="GitHub: Lostdou", font='minecraft 8', cursor="hand2")
+    label.pack()
+    label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou"))
+    label.place(x=50, y=370)  
+    widgets.append(label)
+    label = tkinter.Label(root, text="Twitter/X: @nosoylostdou", font='minecraft 8', cursor="hand2")
+    label.pack()
+    label.bind("<Button-1>", lambda event: callback("https://twitter.com/nosoylostdou"))
+    label.place(x=50, y=400)  
+    widgets.append(label)
+    label = tkinter.Label(root, text="Twitch: lostdou", font='minecraft 8', cursor="hand2")
+    label.pack()
+    label.bind("<Button-1>", lambda event: callback("https://www.twitch.tv/lostdou"))
+    label.place(x=50, y=430)  
+    widgets.append(label)
 
 ## ---------------- Window ----------------------
 # Creamos la ventana
@@ -196,28 +262,3 @@ mainmenu_window()
 
 root.mainloop()
 
-'''
------------------------ Notas de Desarrollo ---------------------
-#03/05/24 
-- Cambios:
-    - Cambio en la GUI, ahora todas las pestañas del programa tienen Labels y Botones globales.
-    Estos son Botones o texto que son parte imborrable de la GUI y son accesibles en todo momento.
-    - Ahora la pestaña para modificar un modpack (created_modpack_window()) ya permite la instalación de mods de forma
-    local y mediante CurseForge.
-    - GUI del editor de modpacks terminada
-    - 3 funciones nuevas y una modificada. Más info en functions.py
-
-#05/05/24
-- Cambios:
-    - Nuevos 2 botones a la GUI global, "Resource Packs" y "About me". Ambos tomaran funcion de a poco.
-    - La interfaz de la pestaña de Modpacks se da por finalizada
-    - 1 funcion nueva y 1 funcion movida del main.py a functions.py. Mas info en functions.py
-
-#10/05/24
-- Cambios:
-    - Nueva funcion "global_labels_buttons" que almacena los labels y botones que siempre aparecen en la interfaz.
-    Esta ahorra varias lineas y ayuda a poder editarlas desde un unico lugar.
-    - Interfaz de ResourcePacks casi terminada, solo faltaria la funcion de eliminar 
-    y poder copiar la direccion del directorio.
-    - Funciones nuevas(2) y modificadas(2). Más info en functions.py
-'''

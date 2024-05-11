@@ -109,7 +109,7 @@ def add_resource_pack(): # Funcion para agregar Resource Packs, pregunta si quie
     os.makedirs(destination_folder, exist_ok=True)
     import_or_search = messagebox.askquestion("Import or search for mods", "Do you want to import Resource Packs from a local folder (Yes) or search for them in CurseForge? (No)", icon='warning')
     if import_or_search == 'yes':
-        files = filedialog.askopenfilenames(title="Select Resource Packs to move", multiple=True)
+        files = filedialog.askopenfilenames(title="Select Resource Packs to move", initialdir="resourcepacks",multiple=True)
         for file in files:
             if file:
                 shutil.move(file, destination_folder)
@@ -117,46 +117,18 @@ def add_resource_pack(): # Funcion para agregar Resource Packs, pregunta si quie
         callback("https://www.curseforge.com/minecraft/search?page=1&pageSize=20&sortBy=relevancy&class=texture-packs.")
 
 def choose_rp():
-    rps = filedialog.askopenfiles(title="Select the resource pack/s", initialdir="resourcepaks") 
+    rps = filedialog.askopenfiles(title="Select the resource pack/s", initialdir="resourcepacks") 
     if rps:
         for rp in rps:
             move_files(rp.name, "resourcepacks")
     else:
         pass
 
+def delete_rp():
+    rps = filedialog.askopenfilenames(title="Select the ResourcePack to delete", initialdir="resourcepacks", filetypes=[('RAR and ZIP files', '*.rar *.zip')], multiple=True)
+    for rp in rps:
+        try:
+            os.remove(rp)
+        except OSError as e:
+            print(f'Error: {rp} : {e.strerror}')
 
-'''
------------------------ Notas de Desarrollo ---------------------
-#03/05/24 
-- Cambios:
-    - Nuevas funciones: 
-                        copy_to_clipboard()
-                        erase_mods()
-                        create_zip_file()
-
-    - Funciones modificadas: 
-                        move_files()
-
-
-    Lo que hacen y sus cambios ya ha sido comentado
-
-#05/05/24
-- Cambios:
-    - Nuevas funciones:
-                        delete_modpack()
-    - Funciones movidas del main.py a functions.py:
-                        ask_if_import_or_search()
-    
-#10/05/24
-- Cambios:
-    - Nuevas funciones:
-                        add_resource_pack()
-                        choose_rp()
-    - Funciones modificadas:
-                        move_files()
-                        ask_if_import_or_search() (nombre cambiado a add_mods())
-    - Funciones movidas del main.py a functions.py:
-                        
-    Lo que hacen y sus cambios ya ha sido comentado
-
-'''
