@@ -3,7 +3,7 @@ import tkinter
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageEnhance, ImageFilter
 from functions import *
 from script_info import *
 
@@ -59,10 +59,12 @@ def mainmenu_window(): # Es el menú principal hecho funcion, no se puede volver
     label.place(x=20, y=150)
     widgets.append(label)
     # ---- Descripcion ----
+    '''
     label_widget = Label(root, text="", height=8, width=110, font='minecraft 6', background="#000000")
     label_widget.place(x=40, y=210)  
     widgets.append(label_widget)
-    label = Label(root, text="MineUtilities v1.2", font='minecraft 8')
+    '''
+    label = Label(root, text="MineUtilities v1.2:", font='minecraft 8')
     label.place(x=50, y=220)  
     widgets.append(label)
     label = Label(root, text="-Now you can move your mods, modpacks and resource packs to be managed by the program", font='minecraft 8')
@@ -184,6 +186,9 @@ def open_rp_window(): # Es el menu de resource packs, aqui deberia poder agregar
     label = Label(root, text="Resource packs", font='minecraft 15')
     label.place(x=20, y=150)
     widgets.append(label)
+    label_widget = tkinter.Label(root, text="IMPORTANT:\nThis program does NOT\n automatically download to the\n resourcepacks directory.\nSo you can copy the path\n to the directory to paste it\n when downloading \nthe resourcepack(s)", height=10, width=25, font='minecraft 6')
+    label_widget.place(x=800, y=220)  
+    widgets.append(label_widget)
 
     # Botones Locales
     btn_add_rp= Button(canvas, text="Add Resource Pack", font='minecraft 10', cursor="hand2", command=add_resource_pack)
@@ -195,6 +200,9 @@ def open_rp_window(): # Es el menu de resource packs, aqui deberia poder agregar
     btn_deleterp= Button(canvas, text="Delete Resource Pack", font='minecraft 10', cursor="hand2", command=delete_rp)
     btn_deleterp.place(x=20, y=400)
     widgets.append(btn_deleterp)
+    btn_copy_dir= Button(canvas, text="Copy directory path", font='minecraft 5', cursor="hand2", command=copy_to_clipboard_rp)
+    btn_copy_dir.place(x=840,y=400)
+    widgets.append(btn_copy_dir)
 
 #------------------------------ About Me ----------------------------
 
@@ -206,7 +214,7 @@ def aboutme_window():
     global_labels_buttons()
 
     # Labels locales
-    label_widget = Label(root, text="", height=4, width=90, font='minecraft 6')
+    label_widget = Label(root, text="", height=6, width=100, font='minecraft 6')
     label_widget.place(x=50, y=220)  
     widgets.append(label_widget)
     label = Label(root, text="About MineUtilities", font='minecraft 15')
@@ -216,30 +224,33 @@ def aboutme_window():
     label = Label(root, text="MineUtilities is an open source program for managing files related to Minecraft.\n", font='minecraft 8')
     label.place(x=50, y=220)  
     widgets.append(label)
-    label = Label(root, text="-From create/modify/delete modpacks and resourcepacks. \n             -As well as easily import them to the .minecraft folder. Easy as that", font='minecraft 8')
+    label = Label(root, text="-You can create/modify/export modpacks and resource packs\n", font='minecraft 8')
     label.place(x=50, y=245)  
+    widgets.append(label)
+    label = Label(root, text="-As well as easily import them to the .minecraft folder. Easy as that\n", font='minecraft 8')
+    label.place(x=50, y=270)  
     widgets.append(label)
     # ---- Creditos ----
     label = tkinter.Label(root, text="Developed by: Lostdou", font='minecraft 8')
-    label.place(x=50, y=300)  
+    label.place(x=50, y=330)  
     widgets.append(label)
     label = tkinter.Label(root, text="Socials:", font='minecraft 8')
-    label.place(x=50, y=340)  
+    label.place(x=50, y=360)  
     widgets.append(label)
     label = tkinter.Label(root, text="GitHub: Lostdou", font='minecraft 8', cursor="hand2")
     label.pack()
     label.bind("<Button-1>", lambda event: callback("https://github.com/Lostdou"))
-    label.place(x=50, y=370)  
+    label.place(x=50, y=390)  
     widgets.append(label)
     label = tkinter.Label(root, text="Twitter/X: @nosoylostdou", font='minecraft 8', cursor="hand2")
     label.pack()
     label.bind("<Button-1>", lambda event: callback("https://twitter.com/nosoylostdou"))
-    label.place(x=50, y=400)  
+    label.place(x=50, y=420)  
     widgets.append(label)
     label = tkinter.Label(root, text="Twitch: lostdou", font='minecraft 8', cursor="hand2")
     label.pack()
     label.bind("<Button-1>", lambda event: callback("https://www.twitch.tv/lostdou"))
-    label.place(x=50, y=430)  
+    label.place(x=50, y=450)  
     widgets.append(label)
 
 ## ---------------- Window ----------------------
@@ -250,9 +261,13 @@ root.geometry('1080x720')
 root.resizable(0, 0)
 root.title(script_name)
 root.configure(bg='#000000')
+root.iconbitmap(r'resources\icon.ico')
 # Aplicamos fondo
-bg_image = Image.open("background_1080.jpg")
-bg_photo = ImageTk.PhotoImage(bg_image)
+bg_image = Image.open(r"resources\background_1080.jpg")
+bg_image = bg_image.filter(ImageFilter.GaussianBlur(radius=6))
+enhancer = ImageEnhance.Brightness(bg_image)
+bg_image_darker = enhancer.enhance(0.5)
+bg_photo = ImageTk.PhotoImage(bg_image_darker)
 canvas = tkinter.Canvas(root, width=1080, height=720)
 canvas.pack(fill="both", expand=True)
 canvas.create_image(0, 0, image=bg_photo, anchor="nw")

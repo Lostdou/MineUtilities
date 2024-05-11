@@ -87,7 +87,8 @@ def add_mods(modpack_path): # Pregunta al usuario si quiere importar mods o busc
             if file:
                 shutil.move(file, destination_folder)
     else:
-        callback("https://www.curseforge.com/minecraft/search?page=1&pageSize=20&sortBy=relevancy&class=mc-mods")
+        callback("https://www.curseforge.com/minecraft/search?page=1&ageSize=20&sortBy=relevancy&class=mc-mods")
+    
 
 def delete_modpack(): # Borra el modpack elegido por el usuario
     modpack = filedialog.askdirectory(title="Select the modpack to erase", initialdir="modpacks")
@@ -132,3 +133,12 @@ def delete_rp():
         except OSError as e:
             print(f'Error: {rp} : {e.strerror}')
 
+def copy_to_clipboard_rp():
+    resourcepacks_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resourcepacks')
+    destination_folder = resourcepacks_path
+    os.makedirs(destination_folder, exist_ok=True)
+    root = Tk()
+    root.withdraw()  # Para evitar que aparezca la ventana de Tk
+    root.clipboard_clear()
+    root.clipboard_append(resourcepacks_path)
+    root.update()
