@@ -12,8 +12,8 @@ EN:
 Facilitating the management of files external to Minecraft.
 
 ES:
-- Open source support program for Minecraft Java Edition with multiple user features.
-Facilitating the management of files external to Minecraft.
+- Programa de soporte de código abierto para Minecraft Java Edition con múltiples funciones de usuario.
+Facilitando la gestión de archivos externos a Minecraft.
 
 ## 📋 Features/Caracteristicas
 
