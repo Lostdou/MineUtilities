@@ -32,9 +32,14 @@ ES:
 ## ⚙️ Installation/Instalación
 EN:
 The Installation Wizard is in this [Link](https://github.com/Lostdou/MineUtilities/releases/tag/v1.2)
+### IMPORTANT: Install the program in a folder that does not ask for "Administrator permissions."
+### Otherwise this will not work
+
 
 ES:
 El asistente de instalación está en este [Link](https://github.com/Lostdou/MineUtilities/releases/tag/v1.2)
+### IMPORTANTE: Instala el programa en un carpeta que no pida "Permisos de administrador".
+### Caso contrario, este no funcionará
 
 
 ## 🤖 Used Libraries/Librerias usadas
