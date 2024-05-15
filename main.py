@@ -2,7 +2,6 @@ import os
 import tkinter
 from tkinter import *
 from tkinter import filedialog
-from tkinter import messagebox
 from PIL import Image, ImageTk, ImageEnhance, ImageFilter
 from functions import *
 from script_info import *
